@@ -1,0 +1,436 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Grow your business with 130Cr+ verified Indian database in 140+ categories. High-quality leads for marketing at ₹99 only!">
+  <meta name="keywords" content="buy WhatsApp contact list, premium email database for marketing, affordable lead generation data, best site to buy digital marketing leads, 130Cr Indian database">
+  <title>DataLeadsHub - 130Cr+ Indian Database for Lead Generation</title>
+  <!-- Tailwind CSS CDN for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Razorpay Checkout.js -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <!-- Favicon -->
+  <link rel="icon" href="https://via.placeholder.com/32?text=DLH" type="image/x-icon">
+  <style>
+    /* Custom styles for WhatsApp button and countdown timer */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+    /* Optimize for mobile */
+    @media (max-width: 640px) {
+      .whatsapp-float {
+        bottom: 10px;
+        right: 10px;
+      }
+    }
+    /* Fast loading with minimal animations */
+    .fade-in {
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    /* Larger buttons for better usability */
+    .cta-button {
+      font-size: 1.25rem;
+      padding: 1rem 2rem;
+    }
+    .whatsapp-button {
+      background-color: #25D366;
+      color: white;
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .whatsapp-button:hover {
+      background-color: #1DA851;
+    }
+    .razorpay-button {
+      background-color: #528FF0;
+      color: white;
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .razorpay-button:hover {
+      background-color: #3B6EDB;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+  <!-- Navigation Bar -->
+  <nav class="bg-gray-800 py-4 sticky top-0 z-50">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <div class="text-2xl font-bold">DataLeadsHub</div>
+      <div class="flex gap-4">
+        <a href="#categories" class="hover:underline">Categories</a>
+        <a href="#testimonials" class="hover:underline">Testimonials</a>
+        <a href="#faq" class="hover:underline">FAQ</a>
+        <a href="https://wa.me/8527609535?text=Hi!%20I%20need%20help" class="whatsapp-button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-blue-800 to-blue-600 py-20 text-center fade-in">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Grow Your Business with 130Cr+ Indian Database</h1>
+      <p class="text-xl md:text-2xl mb-6">🎯 High-Quality Leads in 140+ Categories – Only ₹99! 🎯</p>
+      <div class="flex justify-center gap-4 mb-6">
+        <a href="https://wa.me/8527609535?text=Send%20me%20FREE%20sample%20leads" class="whatsapp-button cta-button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+          Get Free Sample
+        </a>
+        <button onclick="openRazorpay('130Cr Indian Database', 99)" class="razorpay-button cta-button">
+          🚀 Pay Now (₹99)
+        </button>
+      </div>
+      <p class="text-lg mb-4">Originally ₹4999 – Limited Time Offer!</p>
+      <div class="flex justify-center gap-4 text-sm">
+        <span class="bg-gray-700 px-3 py-1 rounded">✅ 100% Verified Data</span>
+        <span class="bg-gray-700 px-3 py-1 rounded">✅ 24/7 WhatsApp Support</span>
+        <span class="bg-gray-700 px-3 py-1 rounded">✅ 5,000+ Happy Customers</span>
+      </div>
+      <div class="mt-6 text-center">
+        <p class="text-xl font-semibold">🚀 Supercharge Your Digital Marketing!</p>
+        <p>📞 Perfect for Calls, SMS, WhatsApp Campaigns</p>
+        <p>🎯 Largest Database for Targeted Leads</p>
+        <p>📈 Grow Your Business Effortlessly</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Database Categories -->
+  <section id="categories" class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Explore 140+ Categories Across India</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="bg-gray-700 p-4 rounded-lg">State & City Wise Data</div>
+        <div class="bg-gray-700 p-4 rounded-lg">B2B | B2C | Companies</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Advocates / Lawyers</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Website Owners</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Car Owners</div>
+        <div class="bg-gray-700 p-4 rounded-lg">NRIs</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Real Estate Leads</div>
+        <div class="bg-gray-700 p-4 rounded-lg">High-Income Employees</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Manufacturing Companies</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Garments Exporters</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Architects | Interior Designers</div>
+        <div class="bg-gray-700 p-4 rounded-lg">BPO/Call Centres</div>
+        <div class="bg-gray-700 p-4 rounded-lg">CEO/CFO/CMO/MD/IT Head</div>
+        <div class="bg-gray-700 p-4 rounded-lg">C.A | Investors</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Chairmen</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Doctors</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Chemical/Pharma Companies</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Chemists</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Property Buyers</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Professors | Teachers | Students</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Event Management Organisers</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Exporters Database</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Females</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Beauty Parlours/SPA</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Job Seekers</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Credit Card Holders</div>
+        <div class="bg-gray-700 p-4 rounded-lg">State Wise Data</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Photography Studios</div>
+        <div class="bg-gray-700 p-4 rounded-lg">HR | IT Companies</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Hotels/Restaurants/Bars</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Bank Database</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Real Estate Agents</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Demat Account Holders</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Schools/Colleges/Educational Institutes</div>
+        <div class="bg-gray-700 p-4 rounded-lg">Online Users & Shoppers</div>
+      </div>
+      <p class="text-center mt-4 text-lg">...and 100+ more categories!</p>
+      <div class="text-center mt-6">
+        <a href="https://wa.me/8527609535?text=I%20want%20to%20know%20more%20about%20your%20categories" class="whatsapp-button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+          Ask About Categories
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Showcase -->
+  <
+
+section class="py-16 bg-gray-900">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Our Best-Selling Data Packs</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- WhatsApp Numbers -->
+        <div class="bg-gray-700 p-6 rounded-lg text-center hover:shadow-lg">
+          <h3 class="text-xl font-semibold mb-4">WhatsApp Contact Lists</h3>
+          <p>✅ 95% Active Users</p>
+          <p>⚡ Updated Weekly</p>
+          <p>💰 Bulk Discounts Available</p>
+          <p class="mt-4 text-red-400">⏳ Only 3 Licenses Left at ₹99!</p>
+          <div class="mt-4 flex justify-center gap-4">
+            <button onclick="openRazorpay('WhatsApp Contact Lists', 99)" class="razorpay-button cta-button">
+              Pay Now
+            </button>
+            <a href="https://wa.me/8527609535?text=I%20want%20to%20buy%20WhatsApp%20Contact%20Lists%20for%20₹99" class="whatsapp-button cta-button">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+              Buy via WhatsApp
+            </a>
+          </div>
+        </div>
+        <!-- Email Lists -->
+        <div class="bg-gray-700 p-6 rounded-lg text-center hover:shadow-lg">
+          <h3 class="text-xl font-semibold mb-4">B2B Email Databases</h3>
+          <p>✅ 90% Inbox Delivery Guarantee</p>
+          <p>⚡ Instant Download</p>
+          <p>💰 50% OFF on 10K+ Leads</p>
+          <p class="mt-4 text-red-400">⏳ Limited Stock!</p>
+          <div class="mt-4 flex justify-center gap-4">
+            <button onclick="openRazorpay('B2B Email Databases', 99)" class="razorpay-button cta-button">
+              Pay Now
+            </button>
+            <a href="https://wa.me/8527609535?text=I%20want%20to%20buy%20B2B%20Email%20Databases%20for%20₹99" class="whatsapp-button cta-button">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+              Buy via WhatsApp
+            </a>
+          </div>
+        </div>
+        <!-- Custom Requests -->
+        <div class="bg-gray-700 p-6 rounded-lg text-center hover:shadow-lg">
+          <h3 class="text-xl font-semibold mb-4">Custom Data Scraping</h3>
+          <p>🔧 Need Specific Leads?</p>
+          <p>✅ Niche-Specific Data</p>
+          <p>⚡ Fast Turnaround</p>
+          <p class="mt-4 text-red-400">⏳ Request Now!</p>
+          <a href="https://wa.me/8527609535?text=I%20need%20custom%20data%20scraping%20services" class="mt-4 inline-block whatsapp-button cta-button">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+            Request Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-gray-800 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12">Why Choose DataLeadsHub?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="bg-gray-700 p-4 rounded-lg">✅ High Accuracy & Low Bounce Rates</div>
+        <div class="bg-gray-700 p-4 rounded-lg">✅ Updated Weekly/Monthly</div>
+        <div class="bg-gray-700 p-4 rounded-lg">✅ 24/7 Customer Support</div>
+        <div class="bg-gray-700 p-4 rounded-lg">✅ Bulk Discounts Available</div>
+      </div>
+      <div class="text-center mt-6">
+        <a href="https://wa.me/8527609535?text=Why%20should%20I%20choose%20DataLeadsHub?" class="whatsapp-button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+          Ask Us Why
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-16 bg-gray-900 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12">What Our Customers Say</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-700 p-6 rounded-lg">
+          <p>"Used these WhatsApp lists for my agency—conversions DOUBLED! 10/10!"</p>
+          <p class="mt-4 font-semibold">– Mark, USA</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-lg">
+          <p>"The emails actually reach inboxes. Worth every penny!"</p>
+          <p class="mt-4 font-semibold">– Sarah, UK</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+      <div class="space-y-6 max-w-3xl mx-auto">
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Is this data legal to use?</h3>
+          <p>Yes, all data is ethically sourced from public directories and is GDPR-compliant.</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">How soon will I get the data?</h3>
+          <p>Instant download after payment via secure email delivery.</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Do you offer refunds?</h3>
+          <p>No refunds due to the digital nature, but we guarantee data quality with a 7-day replacement policy.</p-striped
+        </div>
+      </div>
+      <div class="text-center mt-6">
+        <a href="https://wa.me/8527609535?text=I%20have%20a%20question%20about%20your%20data" class="whatsapp-button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+          Ask a Question
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Countdown Timer -->
+  <section class="py-16 bg-red-600 text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">⏳ Limited Time Offer – First 100 Customers Only!</h2>
+      <p class="text-xl mb-4">⚡ First Come, First Serve | 🕒 Hurry, Offer Ends Soon!</p>
+      <p id="countdown" class="text-2xl font-semibold">00:00:00</p>
+      <div class="mt-6 flex justify-center gap-4">
+        <button onclick="openRazorpay('130Cr Indian Database', 99)" class="razorpay-button cta-button">
+          Secure Your Offer Now
+        </button>
+        <a href="https://wa.me/8527609535?text=I%20want%20to%20buy%20the%20130Cr%20Indian%20Database%20for%20₹99" class="whatsapp-button cta-button">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp Icon">
+          Buy via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 py-8 text-center">
+    <div class="container mx-auto px-4">
+      <p class="mb-4 text-gray-400">Data is for legal marketing use only. We don’t support spam.</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <a href="/privacy-policy" class="hover:underline text-gray-300">Privacy Policy</a>
+        <a href="/terms" class="hover:underline text-gray-300">Terms & Conditions</a>
+        <a href="/refund-policy" class="hover:underline text-gray-300">Refund Policy</a>
+      </div>
+      <p>Contact us: 
+        <a href="https://wa.me/8527609535?text=Hi!%20I%20need%20help" class="underline text-green-400">WhatsApp</a> | 
+        <a href="mailto:support@dataleadshub.com" class="underline text-gray-300">Email</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/8527609535?text=Hi!%20I%20saw%20your%20website..." class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="60" alt="WhatsApp Chat">
+  </a>
+
+  <!-- JavaScript for Countdown Timer, Payment Fallback, and Razorpay -->
+  <script>
+    // Countdown Timer
+    function startCountdown() {
+      const endTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 hours from now
+      const countdownElement = document.getElementById('countdown');
+      setInterval(() => {
+        const now = new Date().getTime();
+        const timeLeft = endTime - now;
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        countdownElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        if (timeLeft < 0) {
+          countdownElement.textContent = 'Offer Expired!';
+        }
+      }, 1000);
+    }
+    startCountdown();
+
+    // Razorpay Payment Integration
+    function openRazorpay(productName, amount) {
+      const options = {
+        key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your Razorpay Key ID
+        amount: amount * 100, // Amount in paise (₹99 = 9900 paise)
+        currency: 'INR',
+        name: 'DataLeadsHub',
+        description: `Purchase of ${productName}`,
+        image: 'https://via.placeholder.com/100?text=DLH', // Replace with your logo URL
+        handler: function (response) {
+          // On successful payment
+          alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+          // Redirect to WhatsApp for order confirmation
+          window.location.href = `https://wa.me/8527609535?text=I%20have%20completed%20payment%20for%20${productName}%20(Payment%20ID:%20${response.razorpay_payment_id}).%20Please%20send%20my%20data.`;
+        },
+        prefill: {
+          email: '', // Optionally prefill user email
+          contact: '', // Optionally prefill user phone number
+        },
+        notes: {
+          product: productName,
+        },
+        theme: {
+          color: '#528FF0',
+        },
+        modal: {
+          ondismiss: function () {
+            // On payment modal close, redirect to WhatsApp for assistance
+            if (confirm('Payment incomplete. Would you like to complete it via WhatsApp?')) {
+              window.location.href = `https://wa.me/8527609535?text=Help%20me%20complete%20my%20purchase%20for%20${productName}%20(₹${amount})`;
+            }
+          },
+        },
+      };
+      const rzp = new Razorpay(options);
+      rzp.open();
+      rzp.on('payment.failed', function (response) {
+        // On payment failure, redirect to WhatsApp
+        alert('Payment failed. Please try again or contact us on WhatsApp.');
+        window.location.href = `https://wa.me/8527609535?text=Payment%20failed%20for%20${productName}%20(Error:%20${response.error.description}).%20Please%20help%20me%20complete%20my%20purchase.`;
+      });
+    }
+  </script>
+</body>
+</html>
